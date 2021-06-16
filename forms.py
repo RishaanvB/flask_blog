@@ -20,7 +20,9 @@ class RegistrationForm(FlaskForm):
         "Set Password",
         validators=[
             InputRequired(),
-            EqualTo("password_confirm", message="Password must be identical in both inputs"),
+            EqualTo(
+                "password_confirm", message="Password must be identical in both inputs"
+            ),
         ],
     )
     password_confirm = PasswordField("Confirm Password")
@@ -29,7 +31,12 @@ class RegistrationForm(FlaskForm):
 
 class LoginForm(FlaskForm):
     email = StringField(
-        "Email", validators=[InputRequired(), Length(min=5, max=25, message=None), Email(message="That is not an email address :("), ]
+        "Email",
+        validators=[
+            InputRequired(),
+            Length(min=5, max=25, message=None),
+            Email(message="That is not an email address :("),
+        ],
     )
     password = PasswordField(
         "Password",
