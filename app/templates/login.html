@@ -30,10 +30,18 @@ kwargs.pop('class', '') %}
         {{ form.email.label(class="form-control-label") }}
         {{with_errors(form.email, class="form-control form-control-lg") }}
       </div>
+      {%if is_login_failed %}
       <div class="form-group mt-4">
         {{ form.password.label(class="form-control-label") }}
-        {{with_errors(form.password, class="form-control form-control-lg") }}
+        {{with_errors(form.password, class="form-control form-control-lg", autofocus=true ) }}
       </div>
+        {% else %}
+      <div class="form-group mt-4">
+        {{ form.password.label(class="form-control-label") }}
+        {{with_errors(form.password, class="form-control form-control-lg" ) }}
+      </div>
+      {% endif %}
+  
 
       <div class="form-check mt-4">
         {{ form.remember.label(class="form-check-label") }}

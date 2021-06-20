@@ -1,15 +1,34 @@
 {% extends 'base.html' %}
 
 <!--  -->
-{% block content %} {% for post in posts %}
-<article class="media content-section">
-  <div class="media-body">
-    <div class="article-metadata">
-      <a class="mr-2 text-info" href="#">{{ post.author }}</a>
-      <small class="text-muted">{{ post.date_posted }}</small>
+{% block content %} 
+
+{% if not posts%}
+  <h1>Blog is empty. Please write something.</h1>
+{% endif%}
+
+{% for post in posts %}
+<article class="media content-section container">
+  <div class="row">
+    <img
+      class="rounded-circle article-img col-6"
+      src="{{ url_for('static', filename='pics/' + post.author.image_file ) }}"
+      alt="user profile picture"
+    />
+    <div class="media-body col-10">
+      <div class="article-metadata">
+        <a class="mr-2 text-info" href="#">{{ post.author.username }}</a>
+        <small class="text">{{ post.date_posted.strftime("%Y-%d-%m") }}</small>
+      </div>
+      <h2>
+        <a
+          class="article-title blue"
+          href="{{ url_for('new_post', post_id=post.id)}}"
+          >{{ post.title }}</a
+        >
+      </h2>
+      <p class="article-content">{{ post.content }}</p>
     </div>
-    <h2><a class="article-title blue" href="#">{{ post.title }}</a></h2>
-    <p class="article-content">{{ post.content }}</p>
   </div>
 </article>
 {% endfor %} {% endblock content %}
